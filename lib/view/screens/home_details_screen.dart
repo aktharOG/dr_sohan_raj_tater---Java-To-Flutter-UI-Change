@@ -1,35 +1,53 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dr_sohan_raj_tater/constants/app_image.dart';
 import 'package:dr_sohan_raj_tater/core/shimmer_loader.dart';
-import 'package:dr_sohan_raj_tater/helpers/navigation_helper.dart';
 import 'package:dr_sohan_raj_tater/view/provider/home_provider.dart';
-import 'package:dr_sohan_raj_tater/view/screens/home_details_screen.dart';
 import 'package:dr_sohan_raj_tater/view/widgets/headingText.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shimmer/shimmer.dart';
 
-class Hometab extends StatelessWidget {
-  const Hometab({super.key});
+class HomeDetailsScreen extends StatefulWidget {
+  final String playlistID;
+  const HomeDetailsScreen({super.key,required this.playlistID});
 
   @override
-  Widget build(BuildContext context) {
-    final homePro = Provider.of<HomeProvider>(context);
+  State<HomeDetailsScreen> createState() => _HomeDetailsScreenState();
+}
 
-    return homePro.isLoading
+class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
+
+    @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) { 
+    final homePro = Provider.of<HomeProvider>(context,listen:false);
+    homePro.onFetchPlaylistItem(widget.playlistID);
+    });
+  }
+  @override
+  Widget build(BuildContext context) {
+        final homePro = Provider.of<HomeProvider>(context);
+
+    return Scaffold(
+      appBar: AppBar(),
+       body: homePro.isLoadingItem
         ?const Loader()
         : ListView.builder(
-            itemCount: homePro.playLists?.items.length,
+            itemCount: homePro.itemModel.length,
             itemBuilder: (context, index) {
-              final item = homePro.playLists?.items[index];
+              final item = homePro.itemModel[index];
               return InkWell(
                 onTap: () {
-                  push(context, HomeDetailsScreen(playlistID: item?.id ?? ''));
+              //    push(context, HomeDetailsScreen(playlistID: item?.id ?? ''));
+               homePro.openURL(item.snippet.resourceId.videoId);
                 },
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(
+                    SizedBox(
                       height: 10,
                     ),
                     Padding(
@@ -40,13 +58,12 @@ class Hometab extends StatelessWidget {
                           ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: CachedNetworkImage(
-                              placeholder: (ctx,value)=>const Center(child: CircularProgressIndicator()),
                                 fit: BoxFit.cover,
                                 width: MediaQuery.of(context).size.width,
                                 height: 200,
                                 imageUrl: item?.snippet.thumbnails.high.url ??
                                     item?.snippet.thumbnails.medium.url ??
-                                    "https://th.bing.com/th/id/OIP.UeSZpz3lZfh_FP55JjmV9QHaEK?rs=1&pid=ImgDetMain"),
+                                    'ss'),
                           ),
                           ListTile(
                             leading: const CircleAvatar(
@@ -72,6 +89,7 @@ class Hometab extends StatelessWidget {
                 ),
               );
             },
-            );
+            )
+     );
   }
 }

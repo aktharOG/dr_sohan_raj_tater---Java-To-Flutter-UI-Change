@@ -52,7 +52,7 @@ class ApiService {
             response = await dio.get(url,
                 queryParameters: data, options: options ?? Options());
           } else {
-            response = await dio.get(url, options: options ?? Options());
+            response = await dio.get(url, options: options ?? Options(),queryParameters: queryParameters);
           }
           break;
         case apiMethod.post:

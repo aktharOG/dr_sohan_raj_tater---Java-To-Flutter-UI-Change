@@ -42,7 +42,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
               return InkWell(
                 onTap: () {
               //    push(context, HomeDetailsScreen(playlistID: item?.id ?? ''));
-               homePro.openURL(item.snippet.resourceId.videoId);
+               homePro.openURL("https://www.youtube.com/embed/${item.snippet.resourceId.videoId}");
                 },
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

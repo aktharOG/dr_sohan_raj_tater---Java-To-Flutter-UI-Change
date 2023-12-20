@@ -1,4 +1,5 @@
 import 'package:dr_sohan_raj_tater/constants/app_color.dart';
+import 'package:dr_sohan_raj_tater/constants/app_image.dart';
 import 'package:dr_sohan_raj_tater/view/provider/home_provider.dart';
 import 'package:dr_sohan_raj_tater/view/widgets/headingText.dart';
 import 'package:flutter/material.dart';
@@ -30,10 +31,21 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
-        title: HeadingText(
-          text: "PROF.(DR.) SOHAN RAJ TATER E-ENOWLEDGE",
-          fontSize: 16,
-          color: Colors.white,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CircleAvatar(backgroundImage: AssetImage(logo),),
+            SizedBox(width: 15,),
+            Flexible(
+              child: HeadingText(
+                text: "PROF.(DR.) SOHAN RAJ TATER E-ENOWLEDGE",
+                fontSize: 16,
+                color: Colors.white,
+                textAlign: TextAlign.start,
+              ),
+            ),
+          ],
         ),
       ),
       body: homePro.tabs[homePro.currentIndex],

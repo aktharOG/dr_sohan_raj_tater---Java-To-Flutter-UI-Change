@@ -1,8 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dr_sohan_raj_tater/constants/app_color.dart';
 import 'package:dr_sohan_raj_tater/constants/app_image.dart';
+import 'package:dr_sohan_raj_tater/helpers/navigation_helper.dart';
 import 'package:dr_sohan_raj_tater/view/provider/home_provider.dart';
+import 'package:dr_sohan_raj_tater/view/screens/articles_screen.dart';
+import 'package:dr_sohan_raj_tater/view/screens/kowledge_screens/award_screen.dart';
+import 'package:dr_sohan_raj_tater/view/screens/kowledge_screens/books_screen.dart';
+import 'package:dr_sohan_raj_tater/view/screens/kowledge_screens/image_screens.dart';
 import 'package:dr_sohan_raj_tater/view/widgets/headingText.dart';
+import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -26,7 +32,7 @@ class _KnowledgeTabState extends State<KnowledgeTab> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return  Scaffold(
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,28 +60,48 @@ class _KnowledgeTabState extends State<KnowledgeTab> {
                     color: primaryColor,
                   ),
                   Divider(),
-                  HeadingText(
-                    text: "Articles",
-                    fontSize: 25,
-                    color: primaryColor,
+                  InkWell(
+                    onTap: (){
+                      push(context,ArticlesScreen());
+                    },
+                    child: HeadingText(
+                      text: "Articles",
+                      fontSize: 25,
+                      color: primaryColor,
+                    ),
                   ),
                   Divider(),
-                  HeadingText(
-                    text: "Books",
-                    fontSize: 25,
-                    color: primaryColor,
+                  InkWell(
+                    onTap: (){
+                      push(context,BooksScreen());
+                    },
+                    child: HeadingText(
+                      text: "Books",
+                      fontSize: 25,
+                      color: primaryColor,
+                    ),
                   ),
                   Divider(),
-                  HeadingText(
-                    text: "Gallery",
-                    fontSize: 25,
-                    color: primaryColor,
+                  InkWell(
+                    onTap: (){
+                      push(context,ImageScreen());
+                    },
+                    child: HeadingText(
+                      text: "Gallery",
+                      fontSize: 25,
+                      color: primaryColor,
+                    ),
                   ),
                   Divider(),
-                  HeadingText(
-                    text: "Award",
-                    fontSize: 25,
-                    color: primaryColor,
+                  InkWell(
+                    onTap: (){
+                      push(context, AwardScreen());
+                    },
+                    child: HeadingText(
+                      text: "Award",
+                      fontSize: 25,
+                      color: primaryColor,
+                    ),
                   ),
                   Divider(),
                   HeadingText(
@@ -120,6 +146,8 @@ class _KnowledgeTabState extends State<KnowledgeTab> {
                     color: primaryColor,
                   ),
                   Divider(),
+
+                  
                 ],
               ),
             )

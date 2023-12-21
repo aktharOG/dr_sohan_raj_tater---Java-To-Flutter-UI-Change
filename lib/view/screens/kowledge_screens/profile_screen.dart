@@ -5,21 +5,21 @@ import 'package:dr_sohan_raj_tater/view/widgets/headingText.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class AwardScreen extends StatefulWidget {
-  const AwardScreen({super.key});
+class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({super.key});
 
   @override
-  State<AwardScreen> createState() => _DetailsScreenState();
+  State<ProfileScreen> createState() => _DetailsScreenState();
 }
 
-class _DetailsScreenState extends State<AwardScreen> {
+class _DetailsScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       final homePro = Provider.of<HomeProvider>(context, listen: false);
-      homePro.onFetchAwards();
+      homePro.onFetchProfile();
     });
   }
 
@@ -53,7 +53,7 @@ class _DetailsScreenState extends State<AwardScreen> {
         ),
         body: ListView.separated(
             itemBuilder: (context, index) {
-              final data = homePro.awardModel?.data[index];
+              final data = homePro.profileModel?.data[index];
               return InkWell(
                 onTap: () {
                   homePro.openURL(data?.href);
@@ -75,6 +75,6 @@ class _DetailsScreenState extends State<AwardScreen> {
               );
             },
             separatorBuilder: (ctx, i) => const Divider(),
-            itemCount: homePro.awardModel?.data.length ?? 0));
+            itemCount: homePro.profileModel?.data.length ?? 0));
   }
 }

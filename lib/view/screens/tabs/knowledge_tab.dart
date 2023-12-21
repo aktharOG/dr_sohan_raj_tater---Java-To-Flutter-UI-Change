@@ -7,6 +7,7 @@ import 'package:dr_sohan_raj_tater/view/screens/articles_screen.dart';
 import 'package:dr_sohan_raj_tater/view/screens/kowledge_screens/award_screen.dart';
 import 'package:dr_sohan_raj_tater/view/screens/kowledge_screens/books_screen.dart';
 import 'package:dr_sohan_raj_tater/view/screens/kowledge_screens/image_screens.dart';
+import 'package:dr_sohan_raj_tater/view/screens/kowledge_screens/profile_screen.dart';
 import 'package:dr_sohan_raj_tater/view/widgets/headingText.dart';
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
@@ -32,122 +33,125 @@ class _KnowledgeTabState extends State<KnowledgeTab> {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
-            Center(
+            const Center(
               child: CircleAvatar(
                 backgroundImage: AssetImage(logo),
                 radius: 50,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  HeadingText(
+                  const HeadingText(
                     text: "Home",
                     fontSize: 25,
                     color: primaryColor,
                   ),
-                  Divider(),
+                  const Divider(),
                   InkWell(
-                    onTap: (){
-                      push(context,ArticlesScreen());
+                    onTap: () {
+                      push(context, const ArticlesScreen());
                     },
-                    child: HeadingText(
+                    child: const HeadingText(
                       text: "Articles",
                       fontSize: 25,
                       color: primaryColor,
                     ),
                   ),
-                  Divider(),
+                  const Divider(),
                   InkWell(
-                    onTap: (){
-                      push(context,BooksScreen());
+                    onTap: () {
+                      push(context, const BooksScreen());
                     },
-                    child: HeadingText(
+                    child: const HeadingText(
                       text: "Books",
                       fontSize: 25,
                       color: primaryColor,
                     ),
                   ),
-                  Divider(),
+                  const Divider(),
                   InkWell(
-                    onTap: (){
-                      push(context,ImageScreen());
+                    onTap: () {
+                      push(context, const ImageScreen());
                     },
-                    child: HeadingText(
+                    child: const HeadingText(
                       text: "Gallery",
                       fontSize: 25,
                       color: primaryColor,
                     ),
                   ),
-                  Divider(),
+                  const Divider(),
                   InkWell(
-                    onTap: (){
-                      push(context, AwardScreen());
+                    onTap: () {
+                      push(context, const AwardScreen());
                     },
-                    child: HeadingText(
+                    child: const HeadingText(
                       text: "Award",
                       fontSize: 25,
                       color: primaryColor,
                     ),
                   ),
-                  Divider(),
-                  HeadingText(
-                    text: "Profile",
-                    fontSize: 25,
-                    color: primaryColor,
+                  const Divider(),
+                  InkWell(
+                    onTap: () {
+                      push(context, const ProfileScreen());
+                    },
+                    child: const HeadingText(
+                      text: "Profile",
+                      fontSize: 25,
+                      color: primaryColor,
+                    ),
                   ),
-                  Divider(),
-                  HeadingText(
+                  const Divider(),
+                  const HeadingText(
                     text: "Achievements",
                     fontSize: 25,
                     color: primaryColor,
                   ),
-                  Divider(),
-                  HeadingText(
+                  const Divider(),
+                  const HeadingText(
                     text: "Research Cell",
                     fontSize: 25,
                     color: primaryColor,
                   ),
-                  Divider(),
-                  HeadingText(
+                  const Divider(),
+                  const HeadingText(
                     text: "Public Opinion",
                     fontSize: 25,
                     color: primaryColor,
                   ),
-                  Divider(),
-                  HeadingText(
+                  const Divider(),
+                  const HeadingText(
                     text: "Tater's Speeches",
                     fontSize: 25,
                     color: primaryColor,
                   ),
-                  Divider(),
-                  HeadingText(
+                  const Divider(),
+                  const HeadingText(
                     text: "Museum",
                     fontSize: 25,
                     color: primaryColor,
                   ),
-                  Divider(),
-                  HeadingText(
+                  const Divider(),
+                  const HeadingText(
                     text: "Contact",
                     fontSize: 25,
                     color: primaryColor,
                   ),
-                  Divider(),
-
-                  
+                  const Divider(),
                 ],
               ),
             )

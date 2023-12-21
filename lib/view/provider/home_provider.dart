@@ -180,8 +180,9 @@ class HomeProvider extends ChangeNotifier {
     if (!await launchUrl(
         Uri.parse(
           url,
+        
         ),
-        mode: LaunchMode.inAppWebView)) {
+        mode: LaunchMode.externalNonBrowserApplication)) {
       throw Exception('Could not launch $url');
     }
   }

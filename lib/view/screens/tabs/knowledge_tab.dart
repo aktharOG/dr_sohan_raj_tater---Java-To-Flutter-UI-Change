@@ -9,7 +9,6 @@ import 'package:dr_sohan_raj_tater/view/screens/kowledge_screens/books_screen.da
 import 'package:dr_sohan_raj_tater/view/screens/kowledge_screens/image_screens.dart';
 import 'package:dr_sohan_raj_tater/view/screens/kowledge_screens/profile_screen.dart';
 import 'package:dr_sohan_raj_tater/view/widgets/headingText.dart';
-import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

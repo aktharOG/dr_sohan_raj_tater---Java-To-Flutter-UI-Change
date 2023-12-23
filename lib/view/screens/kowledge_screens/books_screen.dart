@@ -59,7 +59,7 @@ class _DetailsScreenState extends State<BooksScreen> {
               return InkWell(
                 onTap: () {
                   print(data?.href);
-                  push(context, PdfViewPage(path: data?.href ?? ""));
+               push(context, PdfViewPage(path: data?.href ?? ""));
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),

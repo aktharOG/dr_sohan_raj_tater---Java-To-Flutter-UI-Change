@@ -99,7 +99,29 @@ class HomeProvider extends ChangeNotifier {
     }
   }
 
+  bool fetchArticles = false;
+  int page = 0;
+
   onFetchArticles() async {
+    // log("profile");
+    // isLoading = true;
+    notifyListeners();
+    Response? res = await ApiService.apiMethodSetup(
+        method: apiMethod.get,
+        url: "http://drsohanrajtater.com/api/articles.php?page=0");
+
+    if (res != null) {
+      log("ferching articles ..");
+      print(res.data);
+
+      articles = articlesFromJson(jsonEncode(jsonDecode(res.data)));
+      // profileModel = profileModelFromJson(jsonEncode(res.data));
+      isLoading = false;
+      notifyListeners();
+    }
+  }
+
+   onFetchMore() async {
     // log("profile");
     // isLoading = true;
     notifyListeners();

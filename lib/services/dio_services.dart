@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-String baseUrl = "http://192.168.29.27:8000/";
+// String baseUrl = "http://192.168.29.27:8000/";
 
 
 enum apiMethod {
@@ -38,19 +38,19 @@ class ApiService {
       Function(int, int)? onSendProgress,
       Function(int, int)? onRecieveProgress,
       Options? options}) async {
-    dio.options.headers['Content-Type'] = 'application/json';
-    dio.options.headers['Accept'] = 'application/json';
-    dio.options.baseUrl = baseUrl;
+    //dio.options.headers['Content-Type'] = 'application/json';
+   // dio.options.headers['Accept'] = 'application/json';
+   // dio.options.baseUrl = baseUrl;
     dio.options.connectTimeout = const Duration(milliseconds: 10000);
     dio.options.receiveTimeout = const Duration(milliseconds: 10000);
-    dio.options.contentType = Headers.acceptHeader;
+ //   dio.options.contentType = Headers.acceptHeader;
     try {
       Response? response;
       switch (method) {
         case apiMethod.get:
           if (data != null) {
             response = await dio.get(url,
-                queryParameters: data, options: options ?? Options());
+                queryParameters: queryParameters, options: options ?? Options());
           } else {
             response = await dio.get(url, options: options ?? Options(),queryParameters: queryParameters);
           }

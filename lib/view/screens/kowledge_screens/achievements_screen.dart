@@ -1,29 +1,32 @@
 import 'package:dr_sohan_raj_tater/constants/app_color.dart';
 import 'package:dr_sohan_raj_tater/constants/app_image.dart';
 import 'package:dr_sohan_raj_tater/core/shimmer_loader.dart';
+import 'package:dr_sohan_raj_tater/helpers/navigation_helper.dart';
 import 'package:dr_sohan_raj_tater/view/provider/home_provider.dart';
 import 'package:dr_sohan_raj_tater/view/widgets/headingText.dart';
+import 'package:dr_sohan_raj_tater/view/widgets/pdf_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class AwardScreen extends StatefulWidget {
-  const AwardScreen({super.key});
+class AchievementsScreen extends StatefulWidget {
+  const AchievementsScreen({super.key});
 
   @override
-  State<AwardScreen> createState() => _DetailsScreenState();
+  State<AchievementsScreen> createState() => _DetailsScreenState();
 }
 
-class _DetailsScreenState extends State<AwardScreen> {
+class _DetailsScreenState extends State<AchievementsScreen> {
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       final homePro = Provider.of<HomeProvider>(context, listen: false);
-      setState(() {
-        homePro.page=1;
-        homePro.onFetchAwards();
-      });
+     setState(() {
+       
+       homePro.page=0;
+        homePro.onFetchAchievements();
+     });
     });
   }
 
@@ -55,15 +58,16 @@ class _DetailsScreenState extends State<AwardScreen> {
             ],
           ),
         ),
-        body: homePro.isAwardsLoading?const Loader(): Column(
+        body: homePro.isBooksLoading?const Loader(): Column(
           children: [
             Expanded(
               child: ListView.separated(
                   itemBuilder: (context, index) {
-                    final data = homePro.awardModel?.data[index];
+                    final data = homePro.acieveModel?.data[index];
                     return InkWell(
                       onTap: () {
-                        homePro.openURL(data?.href);
+                        print(data?.href);
+                      homePro.openURL(data?.href);
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -82,9 +86,9 @@ class _DetailsScreenState extends State<AwardScreen> {
                     );
                   },
                   separatorBuilder: (ctx, i) => const Divider(),
-                  itemCount: homePro.awardModel?.data.length ?? 0),
+                  itemCount: homePro.acieveModel?.data.length ?? 0),
             ),
-               Padding(
+             Padding(
               padding: const EdgeInsets.only(bottom: 30),
               child: Center(
                 child: Row(
@@ -96,7 +100,7 @@ class _DetailsScreenState extends State<AwardScreen> {
                         onPressed: () {
                           if (homePro.page > 0) {
                             homePro.page--;
-                            homePro.onFetchAwards();
+                            homePro.onFetchAchievements();
                           }
                         },
                         child: const HeadingText(
@@ -112,7 +116,7 @@ class _DetailsScreenState extends State<AwardScreen> {
                         onPressed: () {
                           setState(() {
                             homePro.page++;
-                            homePro.onFetchAwards();
+                            homePro.onFetchAchievements();
                           });
                         },
                         child: const HeadingText(

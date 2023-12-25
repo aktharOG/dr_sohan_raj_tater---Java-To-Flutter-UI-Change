@@ -24,21 +24,29 @@ class HomeProvider extends ChangeNotifier {
   BooksModel? booksModel;
   ImageModel? imageModel;
   AwardModel? awardModel;
+  AwardModel? researchModel;
+  AwardModel? publicOpinion;
+  AwardModel? speachesModel;
+  AwardModel? acieveModel;
+  AwardModel? museumModel;
 
   List<ItemModel> itemModel = [];
   bool isLoading = false;
+
   bool isLoadingItem = false;
 
   int currentIndex = 0;
 
   List<Widget> tabs = const [Hometab(), KnowledgeTab()];
 
+  int page = 0;
+
   onChangeBottomBar(value) {
     currentIndex = value;
     notifyListeners();
   }
 
-  onFetchPlaylists() async {
+  onFetchPlaylists(channelID) async {
     log("onFetchPlaylists");
 
     isLoading = true;
@@ -46,7 +54,7 @@ class HomeProvider extends ChangeNotifier {
     Response? res = await ApiService.apiMethodSetup(
         method: apiMethod.get,
         url:
-            "https://www.googleapis.com/youtube/v3/playlists?part=id%2Csnippet&channelId=UCML9aPPHwigTRBJrx-9b1Uw&maxResults=20&key=AIzaSyDQaXoj4trJO91ufuEiB6Oh3IBp00aVpFA&maxResults=100");
+            "https://www.googleapis.com/youtube/v3/playlists?part=id%2Csnippet&channelId=$channelID&maxResults=20&key=AIzaSyDQaXoj4trJO91ufuEiB6Oh3IBp00aVpFA&maxResults=100");
 
     if (res != null) {
       print(res.data);
@@ -57,13 +65,16 @@ class HomeProvider extends ChangeNotifier {
     }
   }
 
+  bool isProfileLoading = false;
+
   onFetchProfile() async {
+    isProfileLoading = true;
     // log("profile");
     // isLoading = true;
     notifyListeners();
     Response? res = await ApiService.apiMethodSetup(
         method: apiMethod.get,
-        url: "http://drsohanrajtater.com/api/profile.php");
+        url: "http://drsohanrajtater.com/api/profile.php?page=$page");
 
     if (res != null) {
       log("ferching profile ..");
@@ -71,12 +82,12 @@ class HomeProvider extends ChangeNotifier {
 
       profileModel = profileModelFromJson(jsonEncode(jsonDecode(res.data)));
       // profileModel = profileModelFromJson(jsonEncode(res.data));
-      isLoading = false;
+      isProfileLoading = false;
       notifyListeners();
     }
   }
 
-  onFetchPlaylistItem(playlistID) async {
+  onFetchPlaylistItem(playlistID, channelID) async {
     log("onPlaylist item : ");
     log("playlist ID : $playlistID");
     isLoadingItem = true;
@@ -84,7 +95,7 @@ class HomeProvider extends ChangeNotifier {
     Response? res = await ApiService.apiMethodSetup(
       method: apiMethod.get,
       url:
-          "https://www.googleapis.com/youtube/v3/playlistItems?key=AIzaSyDQaXoj4trJO91ufuEiB6Oh3IBp00aVpFA&part=snippet%2CcontentDetails&playlistId=$playlistID&maxResults=10",
+          "https://www.googleapis.com/youtube/v3/playlistItems?key=AIzaSyDQaXoj4trJO91ufuEiB6Oh3IBp00aVpFA&part=snippet%2CcontentDetails&playlistId=$playlistID&maxResults=10&channelId=$channelID",
     );
 
     if (res != null) {
@@ -100,15 +111,16 @@ class HomeProvider extends ChangeNotifier {
   }
 
   bool fetchArticles = false;
-  int page = 0;
+  bool isArticlesLoading = false;
 
   onFetchArticles() async {
     // log("profile");
     // isLoading = true;
+    isArticlesLoading = true;
     notifyListeners();
     Response? res = await ApiService.apiMethodSetup(
         method: apiMethod.get,
-        url: "http://drsohanrajtater.com/api/articles.php?page=0");
+        url: "http://drsohanrajtater.com/api/articles.php?page=$page");
 
     if (res != null) {
       log("ferching articles ..");
@@ -116,37 +128,38 @@ class HomeProvider extends ChangeNotifier {
 
       articles = articlesFromJson(jsonEncode(jsonDecode(res.data)));
       // profileModel = profileModelFromJson(jsonEncode(res.data));
-      isLoading = false;
+      isArticlesLoading = false;
       notifyListeners();
     }
   }
 
-   onFetchMore() async {
+  // onFetchMore() async {
+  //   // log("profile");
+  //   // isLoading = true;
+  //   notifyListeners();
+  //   Response? res = await ApiService.apiMethodSetup(
+  //       method: apiMethod.get,
+  //       url: "http://drsohanrajtater.com/api/articles.php?page=$page");
+
+  //   if (res != null) {
+  //     log("ferching articles ..");
+  //     print(res.data);
+
+  //     articles = articlesFromJson(jsonEncode(jsonDecode(res.data)));
+  //     // profileModel = profileModelFromJson(jsonEncode(res.data));
+  //     isLoading = false;
+  //     notifyListeners();
+  //   }
+  // }
+
+  bool isBooksLoading = false;
+
+  onFetchBooks() async {
     // log("profile");
-    // isLoading = true;
+    isBooksLoading = true;
     notifyListeners();
     Response? res = await ApiService.apiMethodSetup(
-        method: apiMethod.get,
-        url: "http://drsohanrajtater.com/api/articles.php?page=0");
-
-    if (res != null) {
-      log("ferching articles ..");
-      print(res.data);
-
-      articles = articlesFromJson(jsonEncode(jsonDecode(res.data)));
-      // profileModel = profileModelFromJson(jsonEncode(res.data));
-      isLoading = false;
-      notifyListeners();
-    }
-  }
-
-    onFetchBooks() async {
-    // log("profile");
-    // isLoading = true;
-    notifyListeners();
-    Response? res = await ApiService.apiMethodSetup(
-        method: apiMethod.get,
-        url: "http://drsohanrajtater.com/api/books.php");
+        method: apiMethod.get, url: "http://drsohanrajtater.com/api/books.php");
 
     if (res != null) {
       log("ferching articles ..");
@@ -154,18 +167,19 @@ class HomeProvider extends ChangeNotifier {
 
       booksModel = booksModelFromJson(jsonEncode(jsonDecode(res.data)));
       // profileModel = profileModelFromJson(jsonEncode(res.data));
-      isLoading = false;
+      isBooksLoading = false;
       notifyListeners();
     }
   }
 
-    onfetchImages() async {
+  bool isImagesLoading = false;
+  onfetchImages() async {
     // log("profile");
-    // isLoading = true;
+    isImagesLoading = true;
     notifyListeners();
     Response? res = await ApiService.apiMethodSetup(
         method: apiMethod.get,
-        url: "http://drsohanrajtater.com/api/imagegallery.php?page=0");
+        url: "http://drsohanrajtater.com/api/imagegallery.php?page=$page");
 
     if (res != null) {
       log("ferching Images ..");
@@ -173,18 +187,19 @@ class HomeProvider extends ChangeNotifier {
 
       imageModel = imageModelFromJson(jsonEncode(jsonDecode(res.data)));
       // profileModel = profileModelFromJson(jsonEncode(res.data));
-      isLoading = false;
+      isImagesLoading = false;
       notifyListeners();
     }
   }
 
-   onFetchAwards() async {
+  bool isAwardsLoading = false;
+
+  onFetchAwards() async {
     // log("profile");
-    // isLoading = true;
+    isAwardsLoading = true;
     notifyListeners();
     Response? res = await ApiService.apiMethodSetup(
-        method: apiMethod.get,
-        url: "http://drsohanrajtater.com/api/award.php");
+        method: apiMethod.get, url: "http://drsohanrajtater.com/api/award.php?page=$page");
 
     if (res != null) {
       log("ferching Images ..");
@@ -192,19 +207,117 @@ class HomeProvider extends ChangeNotifier {
 
       awardModel = awardModelFromJson(jsonEncode(jsonDecode(res.data)));
       // profileModel = profileModelFromJson(jsonEncode(res.data));
-      isLoading = false;
+      isAwardsLoading = false;
       notifyListeners();
     }
   }
 
-  Future<void> openURL(url) async {
+  bool isResearchLoading = false;
+
+  onFetchResearch() async {
+    // log("profile");
+    isAwardsLoading = true;
+    notifyListeners();
+    Response? res = await ApiService.apiMethodSetup(
+        method: apiMethod.get,
+        url: "http://drsohanrajtater.com/api/research.php?page=$page");
+
+    if (res != null) {
+      log("ferching Images ..");
+      print(res.data);
+
+      researchModel = awardModelFromJson(jsonEncode(jsonDecode(res.data)));
+      // profileModel = profileModelFromJson(jsonEncode(res.data));
+      isAwardsLoading = false;
+      notifyListeners();
+    }
+  }
+
+  onFetchPublicOpinion() async {
+    // log("profile");
+    isAwardsLoading = true;
+    notifyListeners();
+    Response? res = await ApiService.apiMethodSetup(
+        method: apiMethod.get,
+        url: "http://drsohanrajtater.com/api/public_opinion.php?page=$page");
+
+    if (res != null) {
+      log("ferching Images ..");
+      print(res.data);
+
+      publicOpinion = awardModelFromJson(jsonEncode(jsonDecode(res.data)));
+      // profileModel = profileModelFromJson(jsonEncode(res.data));
+      isAwardsLoading = false;
+      notifyListeners();
+    }
+  }
+
+  onFetchSpeaches() async {
+    // log("profile");
+    isAwardsLoading = true;
+    notifyListeners();
+    Response? res = await ApiService.apiMethodSetup(
+        method: apiMethod.get,
+        url: "http://drsohanrajtater.com/api/speeches.php?page=$page");
+
+    if (res != null) {
+      log("ferching Images ..");
+      print(res.data);
+
+      speachesModel = awardModelFromJson(jsonEncode(jsonDecode(res.data)));
+      // profileModel = profileModelFromJson(jsonEncode(res.data));
+      isAwardsLoading = false;
+      notifyListeners();
+    }
+  }
+
+  onFetchAchievements() async {
+    // log("profile");
+    isAwardsLoading = true;
+    notifyListeners();
+    Response? res = await ApiService.apiMethodSetup(
+        method: apiMethod.get,
+        url: "http://drsohanrajtater.com/api/achiv.php?page=$page");
+
+    if (res != null) {
+      log("ferching Images ..");
+      print(res.data);
+
+      acieveModel = awardModelFromJson(jsonEncode(jsonDecode(res.data)));
+      // profileModel = profileModelFromJson(jsonEncode(res.data));
+      isAwardsLoading = false;
+      notifyListeners();
+    }
+  }
+
+  onFetchMuseum() async {
+    // log("profile");
+    isAwardsLoading = true;
+    notifyListeners();
+    Response? res = await ApiService.apiMethodSetup(
+        method: apiMethod.get,
+        url: "http://drsohanrajtater.com/api/museum.php?page=$page");
+
+    if (res != null) {
+      log("ferching Images ..");
+      print(res.data);
+
+      museumModel = awardModelFromJson(jsonEncode(jsonDecode(res.data)));
+      // profileModel = profileModelFromJson(jsonEncode(res.data));
+      isAwardsLoading = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> openURL(url, {isYT = false}) async {
     print(url);
     if (!await launchUrl(
         Uri.parse(
           url,
-        
         ),
-        mode: LaunchMode.externalNonBrowserApplication)) {
+        mode: isYT
+            ? LaunchMode.inAppWebView
+            : LaunchMode.externalNonBrowserApplication)) {
       throw Exception('Could not launch $url');
     }
   }

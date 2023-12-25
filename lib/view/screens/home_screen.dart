@@ -19,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       final homePro = Provider.of<HomeProvider>(context, listen: false);
-      homePro.onFetchPlaylists();
+      // homePro.onFetchPlaylists();
       homePro.onFetchProfile();
     });
   }
@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
-        title: Row(
+        title: const Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -57,8 +57,8 @@ class _HomeScreenState extends State<HomeScreen> {
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
             BottomNavigationBarItem(
-                icon: Icon(Icons.library_music_outlined),
-                label: "Knoledge Method")
+                icon: Icon(Icons.video_collection_sharp),
+                label: "E-KNOWLEDGE MUSEUM")
           ]),
     );
   }

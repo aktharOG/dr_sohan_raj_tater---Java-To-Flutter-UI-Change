@@ -1,5 +1,6 @@
 import 'package:dr_sohan_raj_tater/constants/app_color.dart';
 import 'package:dr_sohan_raj_tater/constants/app_image.dart';
+import 'package:dr_sohan_raj_tater/core/shimmer_loader.dart';
 import 'package:dr_sohan_raj_tater/helpers/navigation_helper.dart';
 import 'package:dr_sohan_raj_tater/view/provider/home_provider.dart';
 import 'package:dr_sohan_raj_tater/view/widgets/headingText.dart';
@@ -53,31 +54,37 @@ class _DetailsScreenState extends State<BooksScreen> {
             ],
           ),
         ),
-        body: ListView.separated(
-            itemBuilder: (context, index) {
-              final data = homePro.booksModel?.data[index];
-              return InkWell(
-                onTap: () {
-                  print(data?.href);
-               push(context, PdfViewPage(path: data?.href ?? ""));
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      HeadingText(
-                        text: data?.title ?? '',
-                        textAlign: TextAlign.start,
-                        fontSize: 20,
-                        color: primaryColor,
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            },
-            separatorBuilder: (ctx, i) => const Divider(),
-            itemCount: homePro.booksModel?.data.length ?? 0));
+        body: homePro.isBooksLoading
+            ? const Loader()
+            : Column(
+              children: [
+                ListView.separated(
+                    itemBuilder: (context, index) {
+                      final data = homePro.booksModel?.data[index];
+                      return InkWell(
+                        onTap: () {
+                          print(data?.href);
+                          push(context, PdfViewPage(path: data?.href ?? ""));
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              HeadingText(
+                                text: data?.title ?? '',
+                                textAlign: TextAlign.start,
+                                fontSize: 20,
+                                color: primaryColor,
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                    separatorBuilder: (ctx, i) => const Divider(),
+                    itemCount: homePro.booksModel?.data.length ?? 0),
+              ],
+            ));
   }
 }

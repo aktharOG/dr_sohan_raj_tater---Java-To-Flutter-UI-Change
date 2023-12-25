@@ -6,14 +6,14 @@ import 'package:dr_sohan_raj_tater/view/widgets/headingText.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class AwardScreen extends StatefulWidget {
-  const AwardScreen({super.key});
+class ResearchScreen extends StatefulWidget {
+  const ResearchScreen({super.key});
 
   @override
-  State<AwardScreen> createState() => _DetailsScreenState();
+  State<ResearchScreen> createState() => _DetailsScreenState();
 }
 
-class _DetailsScreenState extends State<AwardScreen> {
+class _DetailsScreenState extends State<ResearchScreen> {
   @override
   void initState() {
     // TODO: implement initState
@@ -21,8 +21,8 @@ class _DetailsScreenState extends State<AwardScreen> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       final homePro = Provider.of<HomeProvider>(context, listen: false);
       setState(() {
-        homePro.page=1;
-        homePro.onFetchAwards();
+        homePro.page=0;
+        homePro.onFetchResearch();
       });
     });
   }
@@ -55,36 +55,38 @@ class _DetailsScreenState extends State<AwardScreen> {
             ],
           ),
         ),
-        body: homePro.isAwardsLoading?const Loader(): Column(
-          children: [
-            Expanded(
-              child: ListView.separated(
-                  itemBuilder: (context, index) {
-                    final data = homePro.awardModel?.data[index];
-                    return InkWell(
-                      onTap: () {
-                        homePro.openURL(data?.href);
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            HeadingText(
-                              text: data?.title ?? '',
-                              textAlign: TextAlign.start,
-                              fontSize: 20,
-                              color: primaryColor,
+        body: homePro.isAwardsLoading
+            ? const Loader()
+            : Column(
+              children: [
+                Expanded(
+                  child: ListView.separated(
+                      itemBuilder: (context, index) {
+                        final data = homePro.publicOpinion?.data[index];
+                        return InkWell(
+                          onTap: () {
+                            homePro.openURL(data?.href);
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                HeadingText(
+                                  text: data?.title ?? '',
+                                  textAlign: TextAlign.start,
+                                  fontSize: 20,
+                                  color: primaryColor,
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                  separatorBuilder: (ctx, i) => const Divider(),
-                  itemCount: homePro.awardModel?.data.length ?? 0),
-            ),
-               Padding(
+                          ),
+                        );
+                      },
+                      separatorBuilder: (ctx, i) => const Divider(),
+                      itemCount: homePro.publicOpinion?.data.length ?? 0),
+                ),
+                   Padding(
               padding: const EdgeInsets.only(bottom: 30),
               child: Center(
                 child: Row(
@@ -96,7 +98,7 @@ class _DetailsScreenState extends State<AwardScreen> {
                         onPressed: () {
                           if (homePro.page > 0) {
                             homePro.page--;
-                            homePro.onFetchAwards();
+                            homePro.onFetchResearch();
                           }
                         },
                         child: const HeadingText(
@@ -112,7 +114,7 @@ class _DetailsScreenState extends State<AwardScreen> {
                         onPressed: () {
                           setState(() {
                             homePro.page++;
-                            homePro.onFetchAwards();
+                            homePro.onFetchResearch();
                           });
                         },
                         child: const HeadingText(
@@ -123,7 +125,7 @@ class _DetailsScreenState extends State<AwardScreen> {
                 ),
               ),
             )
-          ],
-        ));
+              ],
+            ));
   }
 }

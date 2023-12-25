@@ -21,7 +21,12 @@ class _DetailsScreenState extends State<ArticlesScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       final homePro = Provider.of<HomeProvider>(context, listen: false);
-      homePro.onFetchArticles();
+     
+      setState(() {
+         homePro.page=0;
+          homePro.onFetchArticles();
+      });
+     
     });
   }
 
@@ -32,7 +37,7 @@ class _DetailsScreenState extends State<ArticlesScreen> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: primaryColor,
-          title: Row(
+          title: const Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -53,31 +58,76 @@ class _DetailsScreenState extends State<ArticlesScreen> {
             ],
           ),
         ),
-        body: ListView.separated(
-            itemBuilder: (context, index) {
-              final data = homePro.articles?.data[index];
-              return InkWell(
-                onTap: () {
-                  print(data?.href);
-                 // push(context, PdfViewPage(path: data?.href ?? ""));
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      HeadingText(
-                        text: data?.title ?? '',
-                        textAlign: TextAlign.start,
-                        fontSize: 20,
-                        color: primaryColor,
+        body: Column(
+          children: [
+            Expanded(
+              child: ListView.separated(
+                  itemBuilder: (context, index) {
+                    final data = homePro.articles?.data[index];
+                    return InkWell(
+                      onTap: () {
+                        print(data?.href);
+                        push(context, PdfViewPage(path: data?.href ?? ""));
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            HeadingText(
+                              text: data?.title ?? '',
+                              textAlign: TextAlign.start,
+                              fontSize: 20,
+                              color: primaryColor,
+                            ),
+                          ],
+                        ),
                       ),
-                    ],
-                  ),
+                    );
+                  },
+                  separatorBuilder: (ctx, i) => const Divider(),
+                  itemCount: homePro.profileModel?.data.length ?? 0),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 30),
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.pinkAccent),
+                        onPressed: () {
+                          if (homePro.page > 0) {
+                            homePro.page--;
+                            homePro.onFetchArticles();
+                          }
+                        },
+                        child: const HeadingText(
+                          text: "Previous Page",
+                          color: Colors.white,
+                        )),
+                    const SizedBox(width: 10),
+                    HeadingText(text: homePro.page.toString()),
+                    const SizedBox(width: 10),
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.pinkAccent),
+                        onPressed: () {
+                          setState(() {
+                            homePro.page++;
+                            homePro.onFetchArticles();
+                          });
+                        },
+                        child: const HeadingText(
+                          text: "Next Page",
+                          color: Colors.white,
+                        )),
+                  ],
                 ),
-              );
-            },
-            separatorBuilder: (ctx, i) => Divider(),
-            itemCount: homePro.profileModel?.data.length ?? 0));
+              ),
+            )
+          ],
+        ));
   }
 }

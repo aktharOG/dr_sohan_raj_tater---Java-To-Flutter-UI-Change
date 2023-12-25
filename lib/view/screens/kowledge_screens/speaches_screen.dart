@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dr_sohan_raj_tater/constants/app_color.dart';
 import 'package:dr_sohan_raj_tater/constants/app_image.dart';
 import 'package:dr_sohan_raj_tater/core/shimmer_loader.dart';
@@ -6,18 +5,17 @@ import 'package:dr_sohan_raj_tater/helpers/navigation_helper.dart';
 import 'package:dr_sohan_raj_tater/view/provider/home_provider.dart';
 import 'package:dr_sohan_raj_tater/view/widgets/headingText.dart';
 import 'package:dr_sohan_raj_tater/view/widgets/pdf_view.dart';
-import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ImageScreen extends StatefulWidget {
-  const ImageScreen({super.key});
+class SpeachesScreen extends StatefulWidget {
+  const SpeachesScreen({super.key});
 
   @override
-  State<ImageScreen> createState() => _DetailsScreenState();
+  State<SpeachesScreen> createState() => _DetailsScreenState();
 }
 
-class _DetailsScreenState extends State<ImageScreen> {
+class _DetailsScreenState extends State<SpeachesScreen> {
   @override
   void initState() {
     // TODO: implement initState
@@ -26,7 +24,7 @@ class _DetailsScreenState extends State<ImageScreen> {
       final homePro = Provider.of<HomeProvider>(context, listen: false);
       setState(() {
         homePro.page = 0;
-        homePro.onfetchImages();
+        homePro.onFetchSpeaches();
       });
     });
   }
@@ -59,45 +57,41 @@ class _DetailsScreenState extends State<ImageScreen> {
             ],
           ),
         ),
-        body: homePro.isImagesLoading
+        body: homePro.isBooksLoading
             ? const Loader()
             : Column(
                 children: [
                   Expanded(
-                    child: GridView.builder(
-                      itemCount: homePro.imageModel?.data.length,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2),
-                      itemBuilder: (ctx, i) {
-                        final data = homePro.imageModel?.data[i];
-                        return InkWell(
-                          onTap: () {
-                            final imageProvider = Image.network(
-                              data.uri,
-                              fit: BoxFit.contain,
-                            ).image;
-
-                            showImageViewer(context, imageProvider,
-                                onViewerDismissed: () {
-                              print("dismissed");
-                            });
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ClipRRect(
-                                borderRadius: BorderRadius.circular(15),
-                                child: CachedNetworkImage(
-                                  imageUrl: data!.uri,
-                                  fit: BoxFit.cover,
-                                )),
-                          ),
-                        );
-                      },
-                    ),
+                    child: ListView.separated(
+                        itemBuilder: (context, index) {
+                          final data = homePro.speachesModel?.data[index];
+                          return InkWell(
+                            onTap: () {
+                              print(data?.href);
+                              homePro.openURL(data?.href);
+                            },
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 15),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  HeadingText(
+                                    text: data?.title ?? '',
+                                    textAlign: TextAlign.start,
+                                    fontSize: 20,
+                                    color: primaryColor,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                        separatorBuilder: (ctx, i) => const Divider(),
+                        itemCount: homePro.speachesModel?.data.length ?? 0),
                   ),
                   Padding(
-                     padding: const EdgeInsets.only(bottom: 30),
+                    padding: const EdgeInsets.only(bottom: 30),
                     child: Center(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -108,7 +102,7 @@ class _DetailsScreenState extends State<ImageScreen> {
                               onPressed: () {
                                 if (homePro.page > 0) {
                                   homePro.page--;
-                                  homePro.onfetchImages();
+                                  homePro.onFetchSpeaches();
                                 }
                               },
                               child: const HeadingText(
@@ -124,7 +118,7 @@ class _DetailsScreenState extends State<ImageScreen> {
                               onPressed: () {
                                 setState(() {
                                   homePro.page++;
-                                  homePro.onfetchImages();
+                                  homePro.onFetchSpeaches();
                                 });
                               },
                               child: const HeadingText(

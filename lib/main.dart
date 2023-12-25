@@ -15,9 +15,13 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [ChangeNotifierProvider(create: (_) => HomeProvider())],
-      child: ScreenUtilInit(
+      child:  ScreenUtilInit(
         designSize: const Size(360, 690),
-        child: const MaterialApp(home: HomeScreen()),
+        child: MaterialApp(
+          theme: ThemeData(
+            fontFamily: "Poppins"
+          ),
+          home: const HomeScreen()),
       ),
     );
   }

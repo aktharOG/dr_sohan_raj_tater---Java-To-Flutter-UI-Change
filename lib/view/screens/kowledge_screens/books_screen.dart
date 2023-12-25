@@ -56,35 +56,31 @@ class _DetailsScreenState extends State<BooksScreen> {
         ),
         body: homePro.isBooksLoading
             ? const Loader()
-            : Column(
-              children: [
-                ListView.separated(
-                    itemBuilder: (context, index) {
-                      final data = homePro.booksModel?.data[index];
-                      return InkWell(
-                        onTap: () {
-                          print(data?.href);
-                          push(context, PdfViewPage(path: data?.href ?? ""));
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              HeadingText(
-                                text: data?.title ?? '',
-                                textAlign: TextAlign.start,
-                                fontSize: 20,
-                                color: primaryColor,
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
+            : ListView.separated(
+                itemBuilder: (context, index) {
+                  final data = homePro.booksModel?.data[index];
+                  return InkWell(
+                    onTap: () {
+                      print(data?.href);
+                      push(context, PdfViewPage(path: data?.href ?? ""));
                     },
-                    separatorBuilder: (ctx, i) => const Divider(),
-                    itemCount: homePro.booksModel?.data.length ?? 0),
-              ],
-            ));
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          HeadingText(
+                            text: data?.title ?? '',
+                            textAlign: TextAlign.start,
+                            fontSize: 20,
+                            color: primaryColor,
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+                separatorBuilder: (ctx, i) => const Divider(),
+                itemCount: homePro.booksModel?.data.length ?? 0));
   }
 }

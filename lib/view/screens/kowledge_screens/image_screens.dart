@@ -8,6 +8,7 @@ import 'package:dr_sohan_raj_tater/view/widgets/headingText.dart';
 import 'package:dr_sohan_raj_tater/view/widgets/pdf_view.dart';
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 class ImageScreen extends StatefulWidget {
@@ -90,6 +91,7 @@ class _DetailsScreenState extends State<ImageScreen> {
                                 child: CachedNetworkImage(
                                   imageUrl: data!.uri,
                                   fit: BoxFit.cover,
+                                  placeholder: (ctx,i)=>const Center(child:  CircularProgressIndicator.adaptive()),
                                 )),
                           ),
                         );
@@ -97,7 +99,7 @@ class _DetailsScreenState extends State<ImageScreen> {
                     ),
                   ),
                   Padding(
-                     padding: const EdgeInsets.only(bottom: 30),
+                     padding:  EdgeInsets.only(bottom: 40.h),
                     child: Center(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,

@@ -6,6 +6,7 @@ import 'package:dr_sohan_raj_tater/view/provider/home_provider.dart';
 import 'package:dr_sohan_raj_tater/view/widgets/headingText.dart';
 import 'package:dr_sohan_raj_tater/view/widgets/pdf_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 class PublicOpinionScreen extends StatefulWidget {
@@ -89,7 +90,7 @@ class _DetailsScreenState extends State<PublicOpinionScreen> {
                   itemCount: homePro.publicOpinion?.data.length ?? 0),
             ),
                  Padding(
-              padding: const EdgeInsets.only(bottom: 30),
+             padding:  EdgeInsets.only(bottom: 40.h),
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

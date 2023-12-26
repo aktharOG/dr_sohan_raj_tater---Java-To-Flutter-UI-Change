@@ -412,9 +412,10 @@ class Home extends StatelessWidget {
                 color: primaryColor,
               ),
               const Divider(),
- const HeadingText(
-  maxLines: 1000,
-                text: """It is to be noted that in this period, his role in getting many things in the premises of Jain Vishva Bharati, Ladnun
+              const HeadingText(
+                maxLines: 1000,
+                text:
+                    """It is to be noted that in this period, his role in getting many things in the premises of Jain Vishva Bharati, Ladnun
             had been very significant. He played an important part in getting a well dug, building an underground water tank, an
             overhead water tank, pipe-lines, distribution of electricity, and installing electricity generator. He also took an
             active part in designing, and monitoring the construction of many beautiful buildings like Amritayan and Art Gallery.
@@ -435,20 +436,23 @@ class Home extends StatelessWidget {
             order have always been important parts of his life. He has followed the maxim of Acharyashri Tulsi : first control
             yourself; then think of discipline, to the fullest. Simple living and high thinking has been the motto of his life.""",
                 fontSize: 18,
-                
                 color: primaryColor,
               ),
-              SizedBox(height: 30.h,),
-  const Divider(),
+              SizedBox(
+                height: 30.h,
+              ),
+              const Divider(),
               const HeadingText(
                 maxLines: 100,
-                text: "Taken from publication of Yuvadristi monthly magazine of Akhil Bhartiya Terapanth Yuvak Parisad, Ladnun in the editionFebruary, 2003, p. 37-38 under personality heading.",
+                text:
+                    "Taken from publication of Yuvadristi monthly magazine of Akhil Bhartiya Terapanth Yuvak Parisad, Ladnun in the editionFebruary, 2003, p. 37-38 under personality heading.",
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
                 color: Color.fromARGB(255, 255, 0, 85),
               ),
-                            SizedBox(height: 30.h,),
-
+              SizedBox(
+                height: 30.h,
+              ),
             ],
           ),
         ),

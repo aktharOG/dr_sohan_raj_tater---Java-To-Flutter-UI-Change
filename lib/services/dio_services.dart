@@ -1,6 +1,9 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:dr_sohan_raj_tater/helpers/navigation_helper.dart';
+import 'package:dr_sohan_raj_tater/view/provider/home_provider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 
 // String baseUrl = "http://192.168.29.27:8000/";
 
@@ -81,6 +84,8 @@ class ApiService {
 
         print(errorResponse);
       } else if (e.response?.statusCode == 500) {
+        final homePro = Provider.of<HomeProvider>(navigatorKey.currentContext!,listen: false);
+        homePro.onEndLoading();
         Fluttertoast.showToast(msg: 'Server Error');
       } else if (e.type == DioErrorType.receiveTimeout) {
         Fluttertoast.showToast(msg: 'Check your network speed');

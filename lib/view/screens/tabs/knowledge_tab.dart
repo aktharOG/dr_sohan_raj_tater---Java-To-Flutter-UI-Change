@@ -9,6 +9,7 @@ import 'package:dr_sohan_raj_tater/view/screens/kowledge_screens/award_screen.da
 import 'package:dr_sohan_raj_tater/view/screens/kowledge_screens/books_screen.dart';
 import 'package:dr_sohan_raj_tater/view/screens/kowledge_screens/contact_screen.dart';
 import 'package:dr_sohan_raj_tater/view/screens/kowledge_screens/home_screen.dart';
+import 'package:dr_sohan_raj_tater/view/screens/kowledge_screens/image_gallery.dart';
 import 'package:dr_sohan_raj_tater/view/screens/kowledge_screens/image_screens.dart';
 import 'package:dr_sohan_raj_tater/view/screens/kowledge_screens/museum_screen.dart';
 import 'package:dr_sohan_raj_tater/view/screens/kowledge_screens/profile_screen.dart';
@@ -108,7 +109,7 @@ class _KnowledgeTabState extends State<KnowledgeTab> {
                   const Divider(),
                   InkWell(
                     onTap: () {
-                      push(context, const ImageScreen());
+                      push(context, const ImageGallery());
                     },
                     child: const ListTile(
                       dense: true,

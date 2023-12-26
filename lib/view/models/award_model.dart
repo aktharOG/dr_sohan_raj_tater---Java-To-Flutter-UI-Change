@@ -34,8 +34,8 @@ class Datum {
     });
 
     factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-        title: json["title"],
-        href: json["href"],
+        title: json["title"]??'',
+        href: json["href"]??'',
     );
 
     Map<String, dynamic> toJson() => {

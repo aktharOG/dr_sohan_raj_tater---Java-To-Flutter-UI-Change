@@ -4,6 +4,7 @@ import 'package:dr_sohan_raj_tater/core/shimmer_loader.dart';
 import 'package:dr_sohan_raj_tater/view/provider/home_provider.dart';
 import 'package:dr_sohan_raj_tater/view/widgets/headingText.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 class ResearchScreen extends StatefulWidget {
@@ -62,7 +63,7 @@ class _DetailsScreenState extends State<ResearchScreen> {
                 Expanded(
                   child: ListView.separated(
                       itemBuilder: (context, index) {
-                        final data = homePro.publicOpinion?.data[index];
+                        final data = homePro.researchModel?.data[index];
                         return InkWell(
                           onTap: () {
                             homePro.openURL(data?.href);
@@ -84,10 +85,10 @@ class _DetailsScreenState extends State<ResearchScreen> {
                         );
                       },
                       separatorBuilder: (ctx, i) => const Divider(),
-                      itemCount: homePro.publicOpinion?.data.length ?? 0),
+                      itemCount: homePro.researchModel?.data.length ?? 0),
                 ),
                    Padding(
-              padding: const EdgeInsets.only(bottom: 30),
+              padding:  EdgeInsets.only(bottom: 40.h),
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

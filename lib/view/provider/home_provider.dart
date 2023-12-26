@@ -54,7 +54,7 @@ class HomeProvider extends ChangeNotifier {
     Response? res = await ApiService.apiMethodSetup(
         method: apiMethod.get,
         url:
-            "https://www.googleapis.com/youtube/v3/playlists?part=id%2Csnippet&channelId=$channelID&maxResults=20&key=AIzaSyDQaXoj4trJO91ufuEiB6Oh3IBp00aVpFA&maxResults=100");
+            "https://www.googleapis.com/youtube/v3/playlists?part=id%2Csnippet&channelId=$channelID&maxResults=40&key=AIzaSyDQaXoj4trJO91ufuEiB6Oh3IBp00aVpFA&maxResults=100");
 
     if (res != null) {
       print(res.data);
@@ -95,7 +95,7 @@ class HomeProvider extends ChangeNotifier {
     Response? res = await ApiService.apiMethodSetup(
       method: apiMethod.get,
       url:
-          "https://www.googleapis.com/youtube/v3/playlistItems?key=AIzaSyDQaXoj4trJO91ufuEiB6Oh3IBp00aVpFA&part=snippet%2CcontentDetails&playlistId=$playlistID&maxResults=10&channelId=$channelID",
+          "https://www.googleapis.com/youtube/v3/playlistItems?key=AIzaSyDQaXoj4trJO91ufuEiB6Oh3IBp00aVpFA&part=snippet%2CcontentDetails&playlistId=$playlistID&maxResults=100&channelId=$channelID",
     );
 
     if (res != null) {
@@ -173,11 +173,18 @@ class HomeProvider extends ChangeNotifier {
   }
 
   bool isImagesLoading = false;
+
+  onEndLoading(){
+    isImagesLoading = false;
+    
+    notifyListeners();
+  }
   onfetchImages() async {
     // log("profile");
     isImagesLoading = true;
     notifyListeners();
-    Response? res = await ApiService.apiMethodSetup(
+    try{
+      Response? res = await ApiService.apiMethodSetup(
         method: apiMethod.get,
         url: "http://drsohanrajtater.com/api/imagegallery.php?page=$page");
 
@@ -186,8 +193,13 @@ class HomeProvider extends ChangeNotifier {
       print(res.data);
 
       imageModel = imageModelFromJson(jsonEncode(jsonDecode(res.data)));
-      // profileModel = profileModelFromJson(jsonEncode(res.data));
       isImagesLoading = false;
+      notifyListeners();
+      // profileModel = profileModelFromJson(jsonEncode(res.data));
+    
+    }
+    }catch(e){
+  isImagesLoading = false;
       notifyListeners();
     }
   }

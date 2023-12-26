@@ -8,6 +8,7 @@ import 'package:dr_sohan_raj_tater/view/screens/kowledge_screens/achievements_sc
 import 'package:dr_sohan_raj_tater/view/screens/kowledge_screens/award_screen.dart';
 import 'package:dr_sohan_raj_tater/view/screens/kowledge_screens/books_screen.dart';
 import 'package:dr_sohan_raj_tater/view/screens/kowledge_screens/contact_screen.dart';
+import 'package:dr_sohan_raj_tater/view/screens/kowledge_screens/home_screen.dart';
 import 'package:dr_sohan_raj_tater/view/screens/kowledge_screens/image_screens.dart';
 import 'package:dr_sohan_raj_tater/view/screens/kowledge_screens/museum_screen.dart';
 import 'package:dr_sohan_raj_tater/view/screens/kowledge_screens/profile_screen.dart';
@@ -64,7 +65,8 @@ class _KnowledgeTabState extends State<KnowledgeTab> {
                 children: [
                   InkWell(
                     onTap: () {
-                      homePro.onChangeBottomBar(0);
+                      //       homePro.onChangeBottomBar(0);
+                      push(context, const Home());
                     },
                     child: const ListTile(
                       dense: true,

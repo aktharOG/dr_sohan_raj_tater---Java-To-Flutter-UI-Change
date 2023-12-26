@@ -145,7 +145,7 @@ class Home extends StatelessWidget {
               InkWell(
                 onTap: () {
                   homePro.openURL(
-                      "http://drsohanrajtater.com/files/Revised_Life_Sketch_SRT_Hindi.pdf");
+                      "http://drsohanrajtater.com/files/Prof_Tater_s_Profile_in English.pdf");
                 },
                 child: const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),
@@ -347,7 +347,7 @@ class Home extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 10.h,
+                height: 30.h,
               ),
               Center(
                 child: Image.asset(
@@ -357,9 +357,9 @@ class Home extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 10.h,
+                height: 20.h,
               ),
-              HeadingText(
+              const HeadingText(
                 text:
                     """   Shri Sohan Raj Tater was born at Kanor, a small village in Barmer district on July 5,1947. He has always been an industrious, studious, simple, humble and soft-spoken. Since his childhood he has been living a detached life. He has always been a brilliant student and a topper. He stood first in class 9th, 10th, 11th and topped the list in the whole of Rajasthan in the higher secondary examination in the year 1964 and thus brought name and fame both to his family and to his Village also. In the year 1965 he was married to Mrs. Laxmidevi. Mrs. Laxmidevi proved the most perfect match to Shri Sohan Raj Tater. She too has been living a detached life since childhood. Both of them being disinterested in enjoying sexual pleasure, they observed celibacy for two years right from the first day of their
                               marriage from 1965 to 1967. They remained in close contact with Munishri Sampatmal Swami, who got shri Sohan Raj to
@@ -372,14 +372,16 @@ class Home extends StatelessWidget {
                 color: primaryColor,
                 fontSize: 18,
               ),
-              Divider(),
-              HeadingText(
+              const Divider(),
+              const HeadingText(
                 text: "HONOURS RECEIVED",
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
+                color: primaryColor,
               ),
-              Divider(),
-              HeadingText(
+              const Divider(),
+              const HeadingText(
+                maxLines: 1000,
                 text:
                     """ As Shri Tater was a very bright and intelligent student and as he had a great desire of learning, he sought admission
             in an Engineering college in 1964 and got the degree of B.E. (Mechanical), Honours in the year 1969. He maintained his
@@ -401,7 +403,52 @@ class Home extends StatelessWidget {
                                \n\n     Nominated Member, Executive Council, Jain Vishva Bharati, Ladnun from 1985 to 1990.""",
                 fontSize: 18,
                 color: primaryColor,
-              )
+              ),
+              const Divider(),
+              const HeadingText(
+                text: "HONOURS RECEIVED",
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: primaryColor,
+              ),
+              const Divider(),
+ const HeadingText(
+  maxLines: 1000,
+                text: """It is to be noted that in this period, his role in getting many things in the premises of Jain Vishva Bharati, Ladnun
+            had been very significant. He played an important part in getting a well dug, building an underground water tank, an
+            overhead water tank, pipe-lines, distribution of electricity, and installing electricity generator. He also took an
+            active part in designing, and monitoring the construction of many beautiful buildings like Amritayan and Art Gallery.
+           \n\n     Shri Sohan Raj Tater devoted all his time to the independent functioning of Yuva Vahini, an organization meant for the
+            youths in the year 1989 that had been declared as the Yogakshem year. He performed this job while he was giving his
+            honourary services as Vice-President, All India Terapanth Yuvak Parishad.
+            \n\n        During Acharya Mahapragyas Ahimsa Yatra, (A march for the cause of non-violence), Shri Sohan Raj Tater, With the
+            inspiration and blessings of Acharya Mahapragya, and with the permission of his family, left the government service,
+            while he was on the post of Superintending Engineer, renounced his well-established cement factory worth crores of
+            rupees and has decided to devote the rest of his life to the self-less service of the order, Terapantha as a life-long
+            volunteer. He formally announced his decision in the proximity of Acharya Mahapragya, in January, 2002. On 26th January,
+            2002 Acharyashri and Yuvacharyashri graced his cement factory located at Boranada (Jodhpur) by their holy presence.
+            On that very day, at the auspicious time of morning, he, with the blessings of Acharyashri and listening to his holy words,
+            started giving his services to Parmarthik Shikshan Sanstha, Ladnun. On February 18, 2002, Shri Sohan Raj Tater was formally
+            nominated the trustee and convener of Parmarthik Shikshan Sanstha by the Trust Board of that institution in the gracious
+            presence of Acharyashri on the occasion of Maryada Mahotsava organized at Pachpadra.
+            \n\n        Devotion, dedication, respect for Acharyashri and all the elders, Sadhna, perseverance and the desire of serving the
+            order have always been important parts of his life. He has followed the maxim of Acharyashri Tulsi : first control
+            yourself; then think of discipline, to the fullest. Simple living and high thinking has been the motto of his life.""",
+                fontSize: 18,
+                
+                color: primaryColor,
+              ),
+              SizedBox(height: 30.h,),
+  const Divider(),
+              const HeadingText(
+                maxLines: 100,
+                text: "Taken from publication of Yuvadristi monthly magazine of Akhil Bhartiya Terapanth Yuvak Parisad, Ladnun in the editionFebruary, 2003, p. 37-38 under personality heading.",
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Color.fromARGB(255, 255, 0, 85),
+              ),
+                            SizedBox(height: 30.h,),
+
             ],
           ),
         ),

@@ -174,32 +174,32 @@ class HomeProvider extends ChangeNotifier {
 
   bool isImagesLoading = false;
 
-  onEndLoading(){
+  onEndLoading() {
     isImagesLoading = false;
-    
+
     notifyListeners();
   }
+
   onfetchImages() async {
     // log("profile");
     isImagesLoading = true;
     notifyListeners();
-    try{
+    try {
       Response? res = await ApiService.apiMethodSetup(
-        method: apiMethod.get,
-        url: "http://drsohanrajtater.com/api/imagegallery.php?page=$page");
+          method: apiMethod.get,
+          url: "http://drsohanrajtater.com/api/imagegallery.php?page=$page");
 
-    if (res != null) {
-      log("ferching Images ..");
-      print(res.data);
+      if (res != null) {
+        log("ferching Images ..");
+        print(res.data);
 
-      imageModel = imageModelFromJson(jsonEncode(jsonDecode(res.data)));
+        imageModel = imageModelFromJson(jsonEncode(jsonDecode(res.data)));
+        isImagesLoading = false;
+        notifyListeners();
+        // profileModel = profileModelFromJson(jsonEncode(res.data));
+      }
+    } catch (e) {
       isImagesLoading = false;
-      notifyListeners();
-      // profileModel = profileModelFromJson(jsonEncode(res.data));
-    
-    }
-    }catch(e){
-  isImagesLoading = false;
       notifyListeners();
     }
   }
@@ -211,7 +211,8 @@ class HomeProvider extends ChangeNotifier {
     isAwardsLoading = true;
     notifyListeners();
     Response? res = await ApiService.apiMethodSetup(
-        method: apiMethod.get, url: "http://drsohanrajtater.com/api/award.php?page=$page");
+        method: apiMethod.get,
+        url: "http://drsohanrajtater.com/api/award.php?page=$page");
 
     if (res != null) {
       log("ferching Images ..");
@@ -323,14 +324,22 @@ class HomeProvider extends ChangeNotifier {
 
   Future<void> openURL(url, {isYT = false}) async {
     print(url);
-    if (!await launchUrl(
-        Uri.parse(
-          url,
-        ),
-        mode: isYT
-            ? LaunchMode.inAppWebView
-            : LaunchMode.externalNonBrowserApplication)) {
-      throw Exception('Could not launch $url');
+    try {
+      if (await launchUrl(
+          Uri.parse(
+            url,
+          ),
+          mode:
+              //  isYT
+              //   ?
+              LaunchMode.inAppWebView
+          //  : LaunchMode.externalNonBrowserApplication
+
+          )) {
+        throw Exception('Could not launch $url');
+      }
+    } catch (e) {
+      log("onError : $e");
     }
   }
 }

@@ -31,6 +31,9 @@ class _PdfViewPageState extends State<PdfViewPage> {
   Widget build(BuildContext context) {
     log(widget.path);
     return Scaffold(
+        appBar: AppBar(
+          title: const Text("Pdf View"),
+        ),
         body: doc == null
             ? const Center(
                 child: CircularProgressIndicator(),
